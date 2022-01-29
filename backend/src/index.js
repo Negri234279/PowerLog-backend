@@ -7,10 +7,10 @@ const { appPort } = require("./config")
 const app = express()
 
 //Middleware
+app.disable('x-powered-by')
 app.use(morgan('dev'))
 app.use(cors())
 app.use(express.json())
-
 //Routes
 app.use(indexRoutes)
 
