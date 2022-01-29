@@ -26,6 +26,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "dev-babel": "nodemon src/index.js --exec babel-node"
+    "dev-babel": "nodemon src/index.js --exec babel-node",
+    "log": "docker logs -f backend"
   }
 }
