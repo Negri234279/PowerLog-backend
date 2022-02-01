@@ -1,5 +1,4 @@
 const { Router } = require('express')
-const { getAllTasks, getTasks, createTask, deleteTask, updateTask } = require('../controllers/task.controller')
 const { getAllWorkouts, getWorkouts, createWorkout, deleteWorkout, updateWorkout, getWorkoutsUser } = require('../controllers/workout.controller')
 
 
