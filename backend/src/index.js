@@ -15,5 +15,5 @@ app.use(express.json())
 //Routes
 app.use(indexRoutes)
 
-//app.use((err, req, res, next) => res.json({ message: err.message }))
+app.use((err, req, res, next) => res.json({ message: err.message }))
 app.listen(appPort, () => { console.log(`Server running in: localhost:${appPort}`) })
