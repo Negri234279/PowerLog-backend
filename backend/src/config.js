@@ -1,4 +1,4 @@
-require("dotenv").config()
+require('dotenv').config()
 
 module.exports = {
     db: {
@@ -8,5 +8,6 @@ module.exports = {
         port: process.env.DB_PORT,
         database: process.env.DB_DATABASE
     },
-    appPort: process.env.APP_PORT ?? 3000
+    appPort: process.env.APP_PORT ?? 3000,
+    jwtSecret: process.env.jwtSecret ?? 'secretoDePrueba'
 }
