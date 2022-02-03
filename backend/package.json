@@ -1,32 +1,32 @@
 {
-  "name": "power-log-backend",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": {
-    "url": "https://github.com/Negri234279/PowerLog",
-    "type": "git"
-  },
-  "author": "Rafa Garcia",
-  "license": "UNLICENSED",
-  "private": true,
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.2",
-    "morgan": "^1.10.0",
-    "pg": "^8.7.1"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.5",
-    "@babel/node": "^7.16.5",
-    "@babel/preset-env": "^7.16.5",
-    "nodemon": "^2.0.15"
-  },
-  "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "dev-babel": "nodemon src/index.js --exec babel-node",
-    "log": "docker logs -f backend"
-  }
+    "name": "power-log-backend",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/Negri234279/PowerLog",
+    "author": "Rafa Garcia",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.2",
+        "jsonwebtoken": "^8.5.1",
+        "morgan": "^1.10.0",
+        "pg": "^8.7.1"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.16.0",
+        "@babel/core": "^7.16.5",
+        "@babel/node": "^7.16.5",
+        "@babel/preset-env": "^7.16.5",
+        "eslint": "^8.8.0",
+        "nodemon": "^2.0.15"
+    },
+    "scripts": {
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js",
+        "dev-babel": "nodemon src/index.js --exec babel-node",
+        "log": "docker logs -f backend"
+    }
 }
