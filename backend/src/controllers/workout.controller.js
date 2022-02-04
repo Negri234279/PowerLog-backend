@@ -11,8 +11,8 @@ const getAllWorkouts = async (req, res, next) => {
 
 const getWorkoutsByUserID = async (req, res, next) => {
     try {
-        const { idUser } = req.params
-        const data = await findWorkoutByUserId(idUser)
+        const { id } = req.user
+        const data = await findWorkoutByUserId(id)
         return res.json(data.rows)
     } catch (error) {
         next(error)
