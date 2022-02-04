@@ -49,9 +49,20 @@ const cryptPassword = async (password) => {
     return await bcrypt.hash(password, salt)
 }
 
+/**
+ * Crypt a password
+ * @param {String} passwdFront Password to vaild
+ * @param {String} passwdDB Password to vaild
+ * @returns Is valid password
+ */
+const validPassword = async (passwdFront, passwdDB) => {
+    return await bcrypt.compare(passwdFront, passwdDB)
+}
+
 module.exports = {
     findUserById,
     findUserByEmail,
     createUser,
-    cryptPassword
+    cryptPassword,
+    validPassword
 }
