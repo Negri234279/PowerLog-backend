@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Avatar, Box, Button, Checkbox, CircularProgress, Container, CssBaseline, FormControlLabel, Grid, TextField, Typography } from '@mui/material'
+import { Avatar, Box, Button, CircularProgress, Container, CssBaseline, Grid, TextField, Typography } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../config'
@@ -28,8 +28,20 @@ const Register = ({ setAuth }) => {
         e.preventDefault()
         setLoading(true)
 
+        /*fetch(`${API_URL}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(credential),
+        })
+            .then((response) => response.json())
+            .then((data) => localStorage.setItem('jwtToken', data.jwtToken))
+            .catch((error) => toastError(error))
+            .finally(() => {
+                setLoading(false)
+                navigate('/')
+            })*/
+
         try {
-            //const body = { email, password }
             const response = await fetch(`${API_URL}/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -40,11 +52,9 @@ const Register = ({ setAuth }) => {
 
             if (parseRes.jwtToken) {
                 localStorage.setItem('token', parseRes.jwtToken)
-                setAuth(true)
                 toastSuccess('Logged in Successfully')
                 navigate('/')
             } else {
-                setAuth(false)
                 toastError(parseRes)
             }
             setLoading(false)
@@ -99,17 +109,6 @@ const Register = ({ setAuth }) => {
                                 value={credential.password}
                                 autoComplete="new-password"
                                 onChange={handleChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        value="allowExtraEmails"
-                                        color="primary"
-                                    />
-                                }
-                                label="I want to receive inspiration, marketing promotions and updates via email."
                             />
                         </Grid>
                     </Grid>

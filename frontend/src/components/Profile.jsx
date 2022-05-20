@@ -10,6 +10,7 @@ const Profile = () => {
             headers: { jwt_token: localStorage.jwtToken },
         })
         const data = await res.json()
+        console.log(data);
         setProfile(data)
     }
 
@@ -17,8 +18,8 @@ const Profile = () => {
         loadProfile()
     }, [])
 
-    console.log(profile)
-    console.table(profile)
+    //console.log(profile)
+    //console.table(profile)
 
     return (
         <div>

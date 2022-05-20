@@ -1,17 +1,16 @@
 import { Button, Grid, Typography } from "@mui/material"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { Link } from "react-router-dom"
-import Profile from "../components/Profile"
+import { AuthContext, initialState } from "../context/AuthContext"
+
+const logout = (setAuth) => {
+    localStorage.removeItem('jwtToken')
+    setAuth(initialState)
+}
 
 const Home = () => {
 
-    const initialUsuario = null
-
-    const [usuario, setUsuario] = useState(initialUsuario)
-
-    const logout = () => {
-        localStorage.removeItem('jwtToken')
-    }
+    const { isAuthenticated, setAuth } = useContext(AuthContext)
 
     return (
         <div>
@@ -25,22 +24,29 @@ const Home = () => {
                 direction="column"
                 justifyContent="center"
             >
-                <Button
-                    to="/login"
-                    component={Link}
-                    variant="contained"
-                    sx={{ display: 'block', margin: '1rem 0' }}
-                >
-                    Iniciar sesion
-                </Button>
-                {!usuario
-                    ? <Button onClick={() => setUsuario(true)}>Iniciar sesion</Button>
-                    : <Button onClick={() => setUsuario(null)}>Cerrar sesion</Button>
+                {!isAuthenticated
+                    ? <Button
+                        to="/login"
+                        component={Link}
+                        variant="contained"
+                        sx={{ display: 'block', margin: '1rem 0' }}>
+                            Iniciar sesion
+                        </Button>
+                    : <Button
+                        onClick={() => logout(setAuth)}
+                        sx={{ display: 'block', margin: '1rem 0' }}>
+                            Cerrar sesion
+                        </Button>
                 }
 
-                <Button onClick={() => logout()}>Cerrar sesion</Button>
+                {/*<Profile />*/}
 
-                <Profile />
+                <Button
+                    to="/profile"
+                    component={Link}
+                >
+                    Perfil
+                </Button>
             </Grid>
         </div>
     )

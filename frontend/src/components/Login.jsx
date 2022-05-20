@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import {  useState } from 'react'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { Avatar, Box, Button, Checkbox, CircularProgress, Container, CssBaseline, FormControlLabel, Grid, TextField, Typography } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
@@ -7,6 +7,8 @@ import useTitle from '../hooks/useTitle'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { API_URL } from '../config'
+import { AuthContext } from '../context/AuthContext'
+import { useContext } from 'react'
 
 const theme = createTheme()
 
@@ -17,6 +19,8 @@ const Login = () => {
 
     const title = 'Workouts form'
     useTitle({ title })
+
+    const { setAuth } = useContext(AuthContext)
 
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
@@ -41,8 +45,11 @@ const Login = () => {
 
             const parseRes = await response.json()
 
+            //console.log(parseRes)
+
             if (parseRes.jwtToken) {
                 localStorage.setItem('jwtToken', parseRes.jwtToken)
+                setAuth({ isAuthenticated: true, token: parseRes.jwtToken })
                 navigate('/')
             } else {
                 toastError(parseRes)
