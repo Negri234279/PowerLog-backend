@@ -16,10 +16,6 @@
         "pg": "^8.7.1"
     },
     "devDependencies": {
-        "@babel/cli": "^7.16.0",
-        "@babel/core": "^7.16.5",
-        "@babel/node": "^7.16.5",
-        "@babel/preset-env": "^7.16.5",
         "eslint": "8.16.0",
         "eslint-config-prettier": "^8.5.0",
         "jest": "28.1.0",
