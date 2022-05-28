@@ -20,13 +20,24 @@
         "@babel/core": "^7.16.5",
         "@babel/node": "^7.16.5",
         "@babel/preset-env": "^7.16.5",
-        "eslint": "^8.8.0",
-        "nodemon": "^2.0.15"
+        "eslint": "8.16.0",
+        "eslint-config-prettier": "^8.5.0",
+        "jest": "28.1.0",
+        "nodemon": "^2.0.15",
+        "prettier": "2.6.2",
+        "supertest": "6.2.3"
     },
     "scripts": {
         "start": "node src/index.js",
         "dev": "nodemon src/index.js",
-        "dev-babel": "nodemon src/index.js --exec babel-node",
-        "log": "docker logs -f backend"
+        "test": "jest --coverage",
+        "lint": "eslint --fix src/**/*.js",
+        "format": "prettier --write src/**/*.js"
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "coveragePathIgnorePatterns": [
+            "/node_modules/"
+        ]
     }
 }
