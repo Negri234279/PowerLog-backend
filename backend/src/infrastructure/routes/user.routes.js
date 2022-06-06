@@ -3,7 +3,7 @@ const { userRegisterController, userLoginController } = require('../controller/u
 
 const router = Router()
 
-//router.post('/register', userRegisterController)
+router.post('/register', userRegisterController)
 router.post('/login', userLoginController)
 
 module.exports = router

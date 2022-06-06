@@ -59,11 +59,11 @@ module.exports = class UserRepository {
     }
 
     static async create(domainUser) {
-        const persistanceUser = UserRepository.toPersistance(domainUser);
+        const { id_user, name, email, password} = UserRepository.toPersistance(domainUser)
 
         return await this.pool.query(
-            'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
-            persistanceUser
+            'INSERT INTO users (id_user, name, email, password) VALUES ($1, $2, $3, $4) RETURNING *',
+            [id_user, name, email, password]
         )
     }
 
