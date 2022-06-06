@@ -4,9 +4,7 @@ const UserRepository = require("../../infrastructure/repositories/user.repositor
 const ConflictException = require("../../shared/errors/conflict.exception");
 const UnauthorizedException = require("../../shared/errors/unauthorized.exception")
 
-const loginUserService = async (body) => {
-    const { email, password } = body
-
+const loginUserService = async (email, password) => {
     await UserModel.createLogin(email, password)
 
     const user = await UserRepository.findByEmail(email)
