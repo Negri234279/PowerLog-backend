@@ -1,19 +1,10 @@
-const express = require('express')
-const morgan = require('morgan')
-const cors = require('cors')
-const indexRoutes = require('./router/index.routes')
-const { appPort } = require('./config')
+const { PORT } = require("./infrastructure/config/common")
+const { initializeHttpServer } = require("./infrastructure/config/initializeHttp")
 
-const app = express()
+const bootstrap = async () => {
+    const httpServer = initializeHttpServer()
 
-//Middleware
-app.disable('x-powered-by')
-app.use(morgan('dev'))
-app.use(cors())
-app.use(express.json())
+    httpServer.listen(PORT, () => { console.log(`Server running in: http://localhost:${PORT}`) })
+}
 
-//Routes
-app.use(indexRoutes)
-
-app.use((err, req, res, next) => res.json({ message: err.message }))
-app.listen(appPort, () => { console.log(`Server running in: localhost:${appPort}`) })
+bootstrap()
