@@ -1,6 +1,6 @@
 const { log } = require("console");
 const { sign } = require("jsonwebtoken");
-const { loginUserService } = require("../../application/services/user.services");
+const { loginUserService } = require("../../application/useCase/user.useCase");
 const { JWT_SECRET_KEY } = require("../config/common");
 
 const userRegisterController = async (req, res, next) => {    
