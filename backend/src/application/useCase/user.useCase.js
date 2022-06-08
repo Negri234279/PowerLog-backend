@@ -8,7 +8,7 @@ const UserEmailAlreadyInUseException = require('../errors/userEmailAlreadyInUse.
 const userRegisterUseCase = async(id, name, email, password) => {
     const newUser = await UserModel.createRegister(id, name, email, password)
 
-    const existUserById = await UserRepository.findByEmail(email)
+    const existUserById = await UserRepository.findById(id)
     if (existUserById) throw new UserIdAlreadyInUseException()
 
     const existUserByEmail = await UserRepository.findByEmail(email)
