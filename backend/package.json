@@ -6,7 +6,7 @@
   "scripts": {
     "start": "SET NODE_ENV=production&& node src/index.js",
     "dev": "SET NODE_ENV=dev&& nodemon src/index.js",
-    "test": "SET NODE_ENV=test&& jest --coverage",
+    "test": "SET NODE_ENV=test&& jest",
     "lint": "eslint --fix src/**/*.js",
     "format": "prettier --write src/**/*.js"
   },

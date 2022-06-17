@@ -1,4 +1,3 @@
-const { log } = require("console");
 const { sign } = require("jsonwebtoken");
 const { userRegisterUseCase, userLoginUseCase } = require("../../application/useCase/user.useCase");
 const { JWT_SECRET_KEY } = require("../config/common");

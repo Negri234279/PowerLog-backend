@@ -1,10 +1,14 @@
 const ApplicationConflictException = require("../../application/errors/applicationConflict.exception");
 const DomainFormatException = require("../../domain/errors/domainFormat.exception");
+const InfrastructureFormatException = require("../errors/infrastructureFormat.exception");
 
 const errorMiddleware = (error, req, res, next) => {
 	console.log('\x1b[0;31m' + error.message)
 
-	if (error instanceof DomainFormatException)
+	if (
+		error instanceof DomainFormatException ||
+		error instanceof InfrastructureFormatException
+	)
 		return res.status(400).send(error.message)
 
 	if (error instanceof ApplicationConflictException)
