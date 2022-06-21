@@ -56,7 +56,7 @@ class UserModel {
         if (!UserModel.validatePassword(password))
             throw new InvalidPasswordFormatException()
 
-        return new UserModel(email, password)
+        return new UserModel(null, null, email, password)
     }
 
     static async createRegister(id, name, email, password) {
@@ -77,6 +77,12 @@ class UserModel {
         return new UserModel(id, name, email, hashedPassword)
     }
 
+    static async profile(id) {
+        if (!UserModel.validateId(id))
+            throw new InvalidIdFormatException()
+
+        return new UserModel(id, null, null, null)
+    }
     
 }
 

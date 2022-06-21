@@ -11,4 +11,5 @@ module.exports = {
         database: process.env.PG_DATABASE
     },
     JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
+    JWT_NAME: 'Authorization'
 }

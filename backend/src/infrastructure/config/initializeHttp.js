@@ -11,8 +11,6 @@ const initializeHttpServer = () => {
     app.disable('x-powered-by')
     app.use(cors())
     app.use(express.json())
-    //app.use(errorMiddleware)
-    //app.use((err, req, res, next) => res.json({ message: err.message }))
 
     if (NODE_ENV === 'dev') {
         const morgan = require('morgan')
