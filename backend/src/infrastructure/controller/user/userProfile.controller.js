@@ -1,21 +1,24 @@
-const userProfileUseCase = require("../../../application/useCase/user/userProfile")
 const MissingFieldsFormatException = require("../../errors/missingFields.exception")
 const UnnecesaryFieldsFormatException = require("../../errors/unnecesaryFields.exception")
 
-const userProfileController = async (req, res, next) => {
-    const { ...rest } = req.body
-    const id = req.user.id
+module.exports = class userProfileController {
+    constructor({ userProfileUseCase }) {
+        this.userProfileUseCase = userProfileUseCase
+    }
 
-    try {
-        if (!id) throw new MissingFieldsFormatException()
-        if (Object.keys(rest).length !== 0) throw new UnnecesaryFieldsFormatException()
+    async execute(req, res, next) {
+        const { ...rest } = req.body
+        const id = req.user.id
 
-        const data = await userProfileUseCase(id)
+        try {
+            if (!id) throw new MissingFieldsFormatException()
+            if (Object.keys(rest).length !== 0) throw new UnnecesaryFieldsFormatException()
 
-        return res.status(200).send(data)
-    } catch (err) {
-        next(err)
+            const data = await this.userProfileUseCase.execute(id)
+
+            return res.status(200).send(data)
+        } catch (err) {
+            next(err)
+        }
     }
 }
-
-module.exports = userProfileController
