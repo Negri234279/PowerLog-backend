@@ -18,4 +18,4 @@ const userProfileController = async (req, res, next) => {
     }
 }
 
-module.exports = { userProfileController }
+module.exports = userProfileController

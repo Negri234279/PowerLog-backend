@@ -17,4 +17,4 @@ const userRegisterController = async (req, res, next) => {
     }
 }
 
-module.exports = { userRegisterController }
+module.exports = userRegisterController

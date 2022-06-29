@@ -28,4 +28,4 @@ const userLoginController = async (req, res, next) => {
     }
 }
 
-module.exports = { userLoginController }
+module.exports = userLoginController
