@@ -46,7 +46,7 @@ class WorkoutModel {
         return repsRegex.test(reps)
     }
 
-    static validateSeps(sets) {
+    static validateSets(sets) {
         const setsRegex = /^[0-9]{1,2}$/
         return setsRegex.test(sets)
     }
@@ -69,7 +69,7 @@ class WorkoutModel {
         if (!WorkoutModel.validateReps(reps))
             throw new InvalidRepsFormatException()
         
-        if (!WorkoutModel.validateSeps(sets))
+        if (!WorkoutModel.validateSets(sets))
             throw new InvalidSetsFormatException()
         
         if (!WorkoutModel.validateIdUser(idUser))
@@ -78,13 +78,6 @@ class WorkoutModel {
 
         return new WorkoutModel(id, name, weight, reps, sets, date, idUser)
     }
-    
-
-
-
-    
-
-
 }
 
 module.exports = WorkoutModel
