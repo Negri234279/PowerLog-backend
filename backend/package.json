@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "SET NODE_ENV=production&& node src/index.js",
-    "dev": "SET NODE_ENV=dev&& nodemon src/index.js",
-    "test": "SET NODE_ENV=test&& jest",
+    "dev": "nodemon src/index.js",
+    "test": "jest",
     "lint": "eslint --fix src/**/*.js",
     "format": "prettier --write src/**/*.js"
   },
@@ -34,8 +34,8 @@
     "eslint-config-prettier": "8.5.0",
     "jest": "28.1.0",
     "morgan": "1.10.0",
-    "nodemon": "2.0.16",
-    "prettier": "2.6.2",
+    "nodemon": "2.0.18",
+    "prettier": "2.7.1",
     "supertest": "6.2.3"
   }
 }
