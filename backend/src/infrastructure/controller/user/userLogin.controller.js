@@ -1,4 +1,4 @@
-const { userLoginUseCase } = require("../../../application/useCase/user.useCase")
+const userLoginUseCase = require("../../../application/useCase/user/userLogin.useCase")
 const MissingFieldsFormatException = require("../../errors/missingFields.exception")
 const UnnecesaryFieldsFormatException = require("../../errors/unnecesaryFields.exception")
 const { signAsync } = require("../../utils/jwt.util")

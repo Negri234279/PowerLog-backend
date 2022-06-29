@@ -1,4 +1,4 @@
-const { userRegisterUseCase } = require("../../../application/useCase/user.useCase")
+const userRegisterUseCase = require("../../../application/useCase/user/userRegsiter")
 const MissingFieldsFormatException = require("../../errors/missingFields.exception")
 const UnnecesaryFieldsFormatException = require("../../errors/unnecesaryFields.exception")
 
