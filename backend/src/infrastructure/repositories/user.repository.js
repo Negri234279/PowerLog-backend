@@ -1,13 +1,9 @@
-const { Pool } = require('pg')
-const { DB } = require('../config/common')
 const UserModel = require('../../domain/models/user.model')
 
 module.exports = class UserRepository {
-    pool = new Pool(DB)
-
-    /*constructor(pool) {
+    constructor({ pool }) {
        this.pool = pool
-    }*/
+    }
 
     /**
     * Transforms a database user into a domain user

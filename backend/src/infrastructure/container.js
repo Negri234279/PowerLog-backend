@@ -1,4 +1,6 @@
-const awilix = require('awilix')
+const { createContainer, InjectionMode, asClass, asFunction } = require('awilix')
+const { Pool } = require('pg')
+const { DB } = require('./config/common')
 const userLoginUseCase = require('../application/useCase/user/userLogin.useCase')
 const userProfileUseCase = require('../application/useCase/user/userProfile.useCase')
 const userRegisterUseCase = require('../application/useCase/user/userRegsiter.useCase')
@@ -7,27 +9,32 @@ const userProfileController = require('./controller/user/userProfile.controller'
 const userRegisterController = require('./controller/user/userRegister.controller')
 const UserRepository = require('./repositories/user.repository')
 
-const container = awilix.createContainer({
-    injectionMode: awilix.InjectionMode.PROXY,
+const container = createContainer({
+    injectionMode: InjectionMode.PROXY,
 })
 
 // Use cases
 container.register({
-    userLoginUseCase: awilix.asClass(userLoginUseCase).singleton(),
-    userRegisterUseCase: awilix.asClass(userRegisterUseCase).singleton(),
-    userProfileUseCase: awilix.asClass(userProfileUseCase).singleton(),
+    userLoginUseCase: asClass(userLoginUseCase).singleton(),
+    userRegisterUseCase: asClass(userRegisterUseCase).singleton(),
+    userProfileUseCase: asClass(userProfileUseCase).singleton(),
 })
 
 // Controllers
 container.register({
-    userLoginController: awilix.asClass(userLoginController).singleton(),
-    userRegisterController: awilix.asClass(userRegisterController).singleton(),
-    userProfileController: awilix.asClass(userProfileController).singleton(),
+    userLoginController: asClass(userLoginController).singleton(),
+    userRegisterController: asClass(userRegisterController).singleton(),
+    userProfileController: asClass(userProfileController).singleton(),
 })
 
 // Repositories
 container.register({
-    userRepository: awilix.asClass(UserRepository).singleton(),
+    userRepository: asClass(UserRepository).singleton(),
+})
+
+//DB
+container.register({
+    pool: asFunction(() => new Pool(DB)).singleton().disposer(pool => pool.end()),
 })
 
 module.exports = container
