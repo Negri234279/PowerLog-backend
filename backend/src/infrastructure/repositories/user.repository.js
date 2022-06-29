@@ -3,7 +3,7 @@ const { DB } = require('../config/common')
 const UserModel = require('../../domain/models/user.model')
 
 module.exports = class UserRepository {
-    static pool = new Pool(DB)
+    pool = new Pool(DB)
 
     /*constructor(pool) {
        this.pool = pool
@@ -14,7 +14,7 @@ module.exports = class UserRepository {
     * @param {*} persistanceUser Database user
     * @returns Domain user
     */
-    static toDomain(persistanceUser) {
+    toDomain(persistanceUser) {
         const { id_user, name, email, password } = persistanceUser.rows[0]
 
         return new UserModel(id_user, name, email, password)
@@ -25,7 +25,7 @@ module.exports = class UserRepository {
      * @param {UserModel} domainUser Domain user
      * @returns Database user
      */
-    static toPersistance(domainUser) {
+    toPersistance(domainUser) {
         const { id, name, email, password } = domainUser;
 
         return {
@@ -36,7 +36,7 @@ module.exports = class UserRepository {
         }
     }
 
-    static async findById(id) {
+    async findById(id) {
         const userFound = await this.pool.query(
             'SELECT * FROM users WHERE id_user = $1',
             [id]
@@ -44,10 +44,10 @@ module.exports = class UserRepository {
 
         if (!userFound.rows[0]) return null
 
-        return UserRepository.toDomain(userFound)
+        return this.toDomain(userFound)
     }
 
-    static async findByEmail(email) {
+    async findByEmail(email) {
         const userFound = await this.pool.query(
             'SELECT * FROM users WHERE email = $1',
             [email]
@@ -55,11 +55,11 @@ module.exports = class UserRepository {
 
         if (!userFound.rows[0]) return null
 
-        return UserRepository.toDomain(userFound)
+        return this.toDomain(userFound)
     }
 
-    static async create(domainUser) {
-        const { id_user, name, email, password} = UserRepository.toPersistance(domainUser)
+    async create(domainUser) {
+        const { id_user, name, email, password } = this.toPersistance(domainUser)
 
         return await this.pool.query(
             'INSERT INTO users (id_user, name, email, password) VALUES ($1, $2, $3, $4) RETURNING *',

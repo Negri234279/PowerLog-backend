@@ -1,18 +1,23 @@
-const bcrypt = require('bcrypt') 
+const { compare } = require('bcrypt') 
 const UserModel = require("../../../domain/models/user.model")
-const UserRepository = require("../../../infrastructure/repositories/user.repository")
 const UserCredentialException = require("../../errors/userCredential.exeption")
 
-const userLoginUseCase = async (email, password) => {
-    await UserModel.createLogin(email, password)
+class userLoginUseCase {
+    constructor({ userRepository }) {
+        this.userRepository = userRepository
+    }
 
-    const user = await UserRepository.findByEmail(email)
-    if (!user) throw new UserCredentialException()
+    async execute(email, password) {
+        await UserModel.createLogin(email, password)
 
-    const vallidPassword = await bcrypt.compare(password, user.password)
-    if (!vallidPassword) throw new UserCredentialException()
+        const user = await this.userRepository.findByEmail(email)
+        if (!user) throw new UserCredentialException()
 
-    return user.id
+        const vallidPassword = await compare(password, user.password)
+        if (!vallidPassword) throw new UserCredentialException()
+
+        return user.id
+    }
 }
 
 module.exports = userLoginUseCase

@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Negri234279/PowerLog#readme",
   "dependencies": {
+    "awilix": "7.0.3",
     "bcrypt": "5.0.1",
     "cors": "2.8.5",
     "dotenv": "16.0.1",
