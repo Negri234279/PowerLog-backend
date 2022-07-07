@@ -1,7 +1,7 @@
-const UserModel = require("../../../domain/models/user.model")
-const UserCredentialException = require("../../errors/userCredential.exeption")
+import { UserModel } from '../../../domain/models/user.model.js'
+import { UserCredentialException } from '../../errors/userCredential.exeption.js'
 
-module.exports = class userProfileUseCase {
+export class userProfileUseCase {
     constructor({ userRepository }) {
         this.userRepository = userRepository
     }

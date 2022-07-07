@@ -1,17 +1,14 @@
 module.exports = {
-    'env': {
-        'commonjs': true,
-        'es2021': true,
-        'node': true
+    env: {
+        es2021: true,
+        node: true,
     },
-    'extends': [
-        'eslint:recommended',
-        'prettier'
-    ],
-    'parserOptions': {
-        'ecmaVersion': 'latest'
+    extends: ['standard', 'prettier'],
+    parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
     },
-    'rules': {
+    rules: {
         'indent': [
             'error',
             'spaces'

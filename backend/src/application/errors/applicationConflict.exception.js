@@ -1,4 +1,4 @@
 /**
  * Generic application conflict exception
  */
-module.exports = class ApplicationConflictException extends Error { }
+export class ApplicationConflictException extends Error { }

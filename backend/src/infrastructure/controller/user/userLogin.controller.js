@@ -1,8 +1,8 @@
-const MissingFieldsFormatException = require("../../errors/missingFields.exception")
-const UnnecesaryFieldsFormatException = require("../../errors/unnecesaryFields.exception")
-const { signAsync } = require("../../utils/jwt.util")
+import { MissingFieldsFormatException } from '../../errors/missingFields.exception.js'
+import { UnnecesaryFieldsFormatException } from '../../errors/unnecesaryFields.exception.js'
+import { signAsync } from '../../utils/jwt.util.js'
 
-class userLoginController {
+export class userLoginController {
     constructor({ userLoginUseCase }) {
         this.userLoginUseCase = userLoginUseCase
     }
@@ -21,16 +21,9 @@ class userLoginController {
 
             const token = await signAsync(payload, signOptions)
 
-            /*res.cookie(JWT_NAME, `Bearer ${token}`, {
-                maxAge: 900000,
-                httpOnly: true
-            })*/
-
             return res.send(`Bearer ${token}`)
         } catch (err) {
             next(err)
         }
     }
 }
-
-module.exports = userLoginController

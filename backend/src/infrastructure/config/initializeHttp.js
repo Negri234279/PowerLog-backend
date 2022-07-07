@@ -1,11 +1,12 @@
-const { createServer } = require('http')
-const express = require('express')
-const cors = require('cors')
-const { NODE_ENV } = require('./common')
-const router = require('../routes/index.routes')
-const errorMiddleware = require('../middlewares/error.middleware')
+import { NODE_ENV } from './common.js'
+import morgan from 'morgan'
+import { createServer } from 'http'
+import express from 'express'
+import cors from 'cors'
+import router from '../routes/index.routes.js'
+import { errorMiddleware } from '../middlewares/error.middleware.js'
 
-const initializeHttpServer = () => {
+export const initializeHttpServer = () => {
     const app = express()
     
     app.disable('x-powered-by')
@@ -13,7 +14,6 @@ const initializeHttpServer = () => {
     app.use(express.json())
 
     if (NODE_ENV === 'dev') {
-        const morgan = require('morgan')
 
         app.use(morgan('dev', {
             skip: function (req, res) { return res.statusCode < 100 }
@@ -28,5 +28,3 @@ const initializeHttpServer = () => {
 
     return httpServer
 }
-
-module.exports = { initializeHttpServer }

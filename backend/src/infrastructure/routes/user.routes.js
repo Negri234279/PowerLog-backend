@@ -1,6 +1,6 @@
-const { Router } = require('express')
-const container = require('../container')
-const authorize = require('../middlewares/authorize')
+import { Router } from 'express'
+import container from '../container.js'
+import authorize from '../middlewares/authorize.js'
 
 const router = Router()
 
@@ -12,4 +12,4 @@ router.post('/login', userLoginController.execute.bind(userLoginController))
 router.post('/register', userRegisterController.execute.bind(userRegisterController))
 router.get('/profile', authorize, userProfileController.execute.bind(userProfileController))
 
-module.exports = router
+export default router

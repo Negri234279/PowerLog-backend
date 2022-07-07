@@ -1,16 +1,16 @@
-const { hash } = require("bcrypt")
-const { test: uuidTest } = require('uuid-random')
-const InvalidEmailFormatException = require('../errors/invalidEmailFormat.exception')
-const InvalidIdFormatException= require('../errors/invalidIdFormat.exception')
-const InvalidNameFormatException = require('../errors/invalidNameFormat.exception')
-const InvalidPasswordFormatException = require('../errors/invalidPasswordFormat.exception')
+import { hash } from 'bcrypt'
+import uuid from 'uuid-random'
+import { InvalidEmailFormatException } from '../errors/invalidEmailFormat.exception.js'
+import { InvalidIdFormatException } from '../errors/invalidIdFormat.exception.js'
+import { InvalidNameFormatException } from '../errors/invalidNameFormat.exception.js'
+import { InvalidPasswordFormatException } from '../errors/invalidPasswordFormat.exception.js'
 
 const HASH_SALT = 10;
 
 /**
  * Registered user in the application
  */
-class UserModel {
+export class UserModel {
     /**
      * @param {String} id User identifier
      * @param {String} name User name and surname
@@ -25,7 +25,7 @@ class UserModel {
     }
 
     static validateId(id) {
-        return uuidTest(id)
+        return uuid.test(id)
     }
 
     static validateName(name) {
@@ -85,5 +85,3 @@ class UserModel {
     }
     
 }
-
-module.exports = UserModel

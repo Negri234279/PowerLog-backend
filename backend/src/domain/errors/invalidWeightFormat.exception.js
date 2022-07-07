@@ -1,6 +1,6 @@
-const DomainFormatException = require("./domainFormat.exception");
+import { DomainFormatException } from './domainFormat.exception.js'
 
-module.exports = class InvalidWeightFormatException extends DomainFormatException {
+export class InvalidWeightFormatException extends DomainFormatException {
     constructor() {
         super('Formato del peso inválido')
     }

@@ -1,6 +1,6 @@
-const ApplicationConflictException = require('./applicationConflict.exception')
+import { ApplicationConflictException } from './applicationConflict.exception.js'
 
-module.exports = class UserCredentialException extends ApplicationConflictException {
+export class UserCredentialException extends ApplicationConflictException {
     constructor() {
         super('The credentials are incorrect')
     }

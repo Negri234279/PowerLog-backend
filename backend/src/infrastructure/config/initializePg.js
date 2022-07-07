@@ -1,12 +1,4 @@
-const { Pool } = require('pg')
-const { DB } = require('./common')
+import postgres from 'pg'
+import { DB } from './common'
 
-const pool = new Pool({
-    user: DB.user,
-    password: DB.password,
-    host: DB.host,
-    port: DB.port,
-    database: DB.database
-})
-
-module.exports = pool
+export const pool = new postgres.Pool(DB)

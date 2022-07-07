@@ -1,6 +1,6 @@
-const InfrastructureFormatException = require('./infrastructureFormat.exception')
+import { InfrastructureFormatException } from './infrastructureFormat.exception.js'
 
-module.exports = class MissingTokenException extends InfrastructureFormatException {
+export class MissingTokenException extends InfrastructureFormatException {
     constructor() {
         super('Missing bearer')
     }

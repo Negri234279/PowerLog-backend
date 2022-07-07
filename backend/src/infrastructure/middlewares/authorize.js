@@ -1,14 +1,14 @@
-const jwt = require('jsonwebtoken')
-const { JWT_SECRET_KEY, JWT_NAME } = require('../config/common');
-const InvalidTokenException = require('../errors/invalidToken.exeption');
-const MissingTokenException = require('../errors/missingToken.exception');
+import jwt from 'jsonwebtoken'
+import { JWT_NAME, JWT_SECRET_KEY } from '../config/common.js'
+import { InvalidTokenException } from '../errors/invalidToken.exeption.js'
+import { MissingTokenException } from '../errors/missingToken.exception.js'
 
-module.exports = function (req, res, next) {
+export default function (req, res, next) {
     const token = req.header(JWT_NAME)
 
     try {
         if (!token) throw new MissingTokenException()
-        
+
         const bearer = token.split(' ')[1]
 
         jwt.verify(bearer, JWT_SECRET_KEY, (err, user) => {

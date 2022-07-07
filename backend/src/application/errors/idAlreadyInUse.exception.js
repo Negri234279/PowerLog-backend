@@ -1,6 +1,6 @@
-const ApplicationConflictException = require('./applicationConflict.exception')
+import { ApplicationConflictException } from './applicationConflict.exception.js'
 
-module.exports = class IdAlreadyInUseException extends ApplicationConflictException {
+export class IdAlreadyInUseException extends ApplicationConflictException {
     constructor() {
         super('The ID is already in use')
     }

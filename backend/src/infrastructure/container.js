@@ -1,13 +1,14 @@
-const { createContainer, InjectionMode, asClass, asFunction } = require('awilix')
-const { Pool } = require('pg')
-const { DB } = require('./config/common')
-const userLoginUseCase = require('../application/useCase/user/userLogin.useCase')
-const userProfileUseCase = require('../application/useCase/user/userProfile.useCase')
-const userRegisterUseCase = require('../application/useCase/user/userRegsiter.useCase')
-const userLoginController = require('./controller/user/userLogin.controller')
-const userProfileController = require('./controller/user/userProfile.controller')
-const userRegisterController = require('./controller/user/userRegister.controller')
-const UserRepository = require('./repositories/user.repository')
+import awilix from 'awilix'
+const { createContainer, InjectionMode, asClass, asFunction } = awilix
+import postgres from 'pg'
+import { userLoginUseCase } from '../application/useCase/user/userLogin.useCase.js'
+import { userProfileUseCase } from '../application/useCase/user/userProfile.useCase.js'
+import { userRegisterUseCase } from '../application/useCase/user/userRegsiter.useCase.js'
+import { DB } from './config/common.js'
+import { userLoginController } from './controller/user/userLogin.controller.js'
+import { userProfileController } from './controller/user/userProfile.controller.js'
+import { userRegisterController } from './controller/user/userRegister.controller.js'
+import { UserRepository } from './repositories/user.repository.js'
 
 const container = createContainer({
     injectionMode: InjectionMode.PROXY,
@@ -34,7 +35,7 @@ container.register({
 
 //DB
 container.register({
-    pool: asFunction(() => new Pool(DB)).singleton().disposer(pool => pool.end()),
+    pool: asFunction(() => new postgres.Pool(DB)).singleton().disposer(pool => pool.end()),
 })
 
-module.exports = container
+export default container

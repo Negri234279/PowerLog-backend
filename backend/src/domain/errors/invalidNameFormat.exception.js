@@ -1,6 +1,6 @@
-const DomainFormatException = require("./domainFormat.exception");
+import { DomainFormatException } from './domainFormat.exception.js'
 
-module.exports = class InvalidNameFormatException extends DomainFormatException {
+export class InvalidNameFormatException extends DomainFormatException {
     constructor() {
         super('Formato de nombre inválido')
     }

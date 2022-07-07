@@ -1,6 +1,6 @@
-const UserModel = require('../../domain/models/user.model')
+import { UserModel } from '../../domain/models/user.model.js'
 
-module.exports = class UserRepository {
+export class UserRepository {
     constructor({ pool }) {
        this.pool = pool
     }

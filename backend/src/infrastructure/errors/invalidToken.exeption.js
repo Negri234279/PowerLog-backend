@@ -1,6 +1,6 @@
-const InfrastructureFormatException = require('./infrastructureFormat.exception')
+import { InfrastructureFormatException } from './infrastructureFormat.exception.js'
 
-module.exports = class InvalidTokenException extends InfrastructureFormatException {
+export class InvalidTokenException extends InfrastructureFormatException {
     constructor() {
         super('Invalid bearer')
     }

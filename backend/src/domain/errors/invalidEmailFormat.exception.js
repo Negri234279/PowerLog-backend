@@ -1,6 +1,6 @@
-const DomainFormatException = require('./domainFormat.exception')
+import { DomainFormatException } from './domainFormat.exception.js'
 
-module.exports = class InvalidEmailFormatException extends DomainFormatException {
+export class InvalidEmailFormatException extends DomainFormatException {
     constructor() {
         super('Formato de email inválido')
     }

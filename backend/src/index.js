@@ -1,5 +1,5 @@
-const { PORT } = require("./infrastructure/config/common")
-const { initializeHttpServer } = require("./infrastructure/config/initializeHttp")
+import { PORT } from './infrastructure/config/common.js'
+import { initializeHttpServer } from './infrastructure/config/initializeHttp.js'
 
 const bootstrap = async () => {
     const httpServer = initializeHttpServer()

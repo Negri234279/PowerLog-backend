@@ -1,6 +1,6 @@
-const InfrastructureFormatException = require('./infrastructureFormat.exception')
+import { InfrastructureFormatException } from './infrastructureFormat.exception.js'
 
-module.exports = class MissingFieldsFormatException extends InfrastructureFormatException {
+export class MissingFieldsFormatException extends InfrastructureFormatException {
     constructor() {
         super('Missing fields format')
     }

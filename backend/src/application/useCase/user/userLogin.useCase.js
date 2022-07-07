@@ -1,8 +1,8 @@
-const { compare } = require('bcrypt') 
-const UserModel = require("../../../domain/models/user.model")
-const UserCredentialException = require("../../errors/userCredential.exeption")
+import { compare } from 'bcrypt'
+import { UserModel } from '../../../domain/models/user.model.js'
+import { UserCredentialException } from '../../errors/userCredential.exeption.js'
 
-class userLoginUseCase {
+export class userLoginUseCase {
     constructor({ userRepository }) {
         this.userRepository = userRepository
     }
@@ -19,5 +19,3 @@ class userLoginUseCase {
         return user.id
     }
 }
-
-module.exports = userLoginUseCase

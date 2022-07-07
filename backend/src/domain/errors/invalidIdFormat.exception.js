@@ -1,6 +1,6 @@
-const DomainFormatException = require("./domainFormat.exception");
+import { DomainFormatException } from './domainFormat.exception.js'
 
-module.exports = class InvalidIdFormatException extends DomainFormatException {
+export class InvalidIdFormatException extends DomainFormatException {
     constructor() {
         super('Formato de ID inválido')
     }

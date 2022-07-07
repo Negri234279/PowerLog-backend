@@ -1,4 +1,4 @@
 /**
  * Generic infrastructure format exception
  */
-module.exports = class InfrastructureFormatException extends Error { }
+export class InfrastructureFormatException extends Error { }

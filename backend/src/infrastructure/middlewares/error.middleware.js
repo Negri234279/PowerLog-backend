@@ -1,10 +1,10 @@
-const ApplicationConflictException = require('../../application/errors/applicationConflict.exception')
-const DomainFormatException = require('../../domain/errors/domainFormat.exception')
-const InfrastructureFormatException = require('../errors/infrastructureFormat.exception')
-const InvalidTokenException = require('../errors/invalidToken.exeption')
-const MissingTokenException = require('../errors/missingToken.exception')
+import { ApplicationConflictException } from '../../application/errors/applicationConflict.exception.js'
+import { DomainFormatException } from '../../domain/errors/domainFormat.exception.js'
+import { InfrastructureFormatException } from '../errors/infrastructureFormat.exception.js'
+import { InvalidTokenException } from '../errors/invalidToken.exeption.js'
+import { MissingTokenException } from '../errors/missingToken.exception.js'
 
-const errorMiddleware = (error, req, res, next) => {
+export const errorMiddleware = (error, req, res, next) => {
 	console.log('\x1b[0;31m' + error.message)
 
 	if (error instanceof DomainFormatException) {
@@ -24,5 +24,3 @@ const errorMiddleware = (error, req, res, next) => {
 	return res.status(500).send('Error interno del servidor')
 	
 }
-
-module.exports = errorMiddleware

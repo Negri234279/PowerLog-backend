@@ -1,7 +1,7 @@
-const MissingFieldsFormatException = require("../../errors/missingFields.exception")
-const UnnecesaryFieldsFormatException = require("../../errors/unnecesaryFields.exception")
+import { MissingFieldsFormatException } from '../../errors/missingFields.exception.js'
+import { UnnecesaryFieldsFormatException } from '../../errors/unnecesaryFields.exception.js'
 
-module.exports = class userRegisterController {
+export class userRegisterController {
     constructor({ userRegisterUseCase }) {
         this.userRegisterUseCase = userRegisterUseCase
     }

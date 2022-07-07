@@ -1,8 +1,8 @@
-const UserModel = require("../../../domain/models/user.model")
-const EmailAlreadyInUseException = require("../../errors/emailAlreadyInUse.exception")
-const IdAlreadyInUseException = require("../../errors/idAlreadyInUse.exception")
+import { UserModel } from '../../../domain/models/user.model.js'
+import { EmailAlreadyInUseException } from '../../errors/emailAlreadyInUse.exception.js'
+import { IdAlreadyInUseException } from '../../errors/idAlreadyInUse.exception.js'
 
-module.exports = class userRegisterUseCase  {
+export class userRegisterUseCase  {
     constructor({ userRepository }) {
         this.userRepository = userRepository
     }

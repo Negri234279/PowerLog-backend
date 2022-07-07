@@ -1,6 +1,6 @@
-const ApplicationConflictException = require('./applicationConflict.exception')
+import { ApplicationConflictException } from './applicationConflict.exception.js'
 
-module.exports = class EmailAlreadyInUseException extends ApplicationConflictException {
+export class EmailAlreadyInUseException extends ApplicationConflictException {
     constructor() {
         super('The email is already in use')
     }
