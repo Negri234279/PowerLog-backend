@@ -1,0 +1,25 @@
+server {
+    listen 80;
+
+    location /api {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Nginx-Proxy true;
+        proxy_pass http://${BACKEND_NAME}:${BACKEND_PORT};
+        proxy_redirect off;
+        proxy_hide_header X-Powered-By;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   html;
+    }
+    
+    error_page 404 /custom_404.html;
+    location = /custom_404.html {
+            root /usr/share/nginx/html;
+            internal;
+    }
+}
