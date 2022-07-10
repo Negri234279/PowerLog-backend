@@ -36,6 +36,7 @@ describe('Test Endpoints Register', () => {
 		})
 			.then(res => {
 				expect(res.status).to.eq(409)
+				expect(res.body).to.eq('The ID is already in use')
 			})
 	})
 
@@ -47,15 +48,19 @@ describe('Test Endpoints Register', () => {
 			headers: { 'Content-Type': 'application/json' },
 			body: {
 				...user,
+				id: 'eda0bd4b-0b23-4c80-9e8b-baa38dbd1248',
 				email: 'test@test.com'
 			}
 		})
 			.then(res => {
 				expect(res.status).to.eq(409)
+				expect(res.body).to.eq('The email is already in use')
 			})
 	})
 
 	it('Register failed - Invalid ID format', () => {
+		const id = 'sdfgsdjnftyhwrtsn5653'
+
 		cy.request({
 			method: 'POST',
 			url,
@@ -63,15 +68,18 @@ describe('Test Endpoints Register', () => {
 			headers: { 'Content-Type': 'application/json' },
 			body: {
 				...user,
-				id: 'sdfgsdjnftyhwrtsn5653'
+				id
 			}
 		})
 			.then(res => {
 				expect(res.status).to.eq(400)
+				expect(res.body).to.eq(`VOUuid: Invalid value "${id}"`)
 			})
 	})
 
 	it('Register failed - Invalid name format', () => {
+		const name = 'name-with-./*'
+
 		cy.request({
 			method: 'POST',
 			url,
@@ -79,15 +87,18 @@ describe('Test Endpoints Register', () => {
 			headers: { 'Content-Type': 'application/json' },
 			body: {
 				...user,
-				name: 'name-with-./*'
+				name
 			}
 		})
 			.then(res => {
 				expect(res.status).to.eq(400)
+				expect(res.body).to.eq(`VOName: Invalid value "${name}"`)
 			})
 	})
 
 	it('Register failed - Invalid email format', () => {
+		const email = 'name.test'
+		
 		cy.request({
 			method: 'POST',
 			url,
@@ -95,15 +106,18 @@ describe('Test Endpoints Register', () => {
 			headers: { 'Content-Type': 'application/json' },
 			body: {
 				...user,
-				email: 'name.test'
+				email
 			}
 		})
 			.then(res => {
 				expect(res.status).to.eq(400)
+				expect(res.body).to.eq(`VOEmail: Invalid value "${email}"`)
 			})
 	})
 
 	it('Register failed - Invalid password format', () => {
+		const password = 'pass'
+
 		cy.request({
 			method: 'POST',
 			url,
@@ -111,11 +125,12 @@ describe('Test Endpoints Register', () => {
 			headers: { 'Content-Type': 'application/json' },
 			body: {
 				...user,
-				password: 'pass'
+				password
 			}
 		})
 			.then(res => {
 				expect(res.status).to.eq(400)
+				expect(res.body).to.eq(`VOPassword: Invalid value "${password}"`)
 			})
 	})
 
