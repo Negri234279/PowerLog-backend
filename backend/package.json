@@ -9,8 +9,8 @@
     "dev": "nodemon src/index.js",
     "docker:build": "docker compose -f docker-compose.dev.yml up -d --build",
     "docker:down": "docker compose -f docker-compose.dev.yml down -v",
-    "cy:open": "cypress open --browser chrome",
-    "cy:run": "cypress run",
+    "cy:open": "cypress open --browser chrome --e2e",
+    "cy:run": "cypress run --browser chrome",
     "lint": "eslint --fix src/**/*.js",
     "format": "prettier --write src/**/*.js"
   },
