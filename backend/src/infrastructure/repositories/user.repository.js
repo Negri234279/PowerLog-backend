@@ -1,4 +1,8 @@
 import { UserModel } from '../../domain/models/user.model.js'
+import { VOUuid } from '../../domain/valueObject/shared/uuid.vo.js'
+import { VOEmail } from '../../domain/valueObject/user/email.vo.js'
+import { VOName } from '../../domain/valueObject/user/name.vo.js'
+import { VOPassword } from '../../domain/valueObject/user/password.vo.js'
 
 export class UserRepository {
     constructor({ pool }) {
@@ -13,7 +17,12 @@ export class UserRepository {
     toDomain(persistanceUser) {
         const { id_user, name, email, password } = persistanceUser.rows[0]
 
-        return new UserModel(id_user, name, email, password)
+        return new UserModel(
+            new VOUuid(id_user),
+            new VOName(name),
+            new VOEmail(email),
+            new VOPassword(password)
+        )
     }
 
     /**
@@ -35,7 +44,7 @@ export class UserRepository {
     async findById(id) {
         const userFound = await this.pool.query(
             'SELECT * FROM users WHERE id_user = $1',
-            [id]
+            [id._value]
         )
 
         if (!userFound.rows[0]) return null
@@ -46,7 +55,7 @@ export class UserRepository {
     async findByEmail(email) {
         const userFound = await this.pool.query(
             'SELECT * FROM users WHERE email = $1',
-            [email]
+            [email._value]
         )
 
         if (!userFound.rows[0]) return null
@@ -59,7 +68,7 @@ export class UserRepository {
 
         return await this.pool.query(
             'INSERT INTO users (id_user, name, email, password) VALUES ($1, $2, $3, $4) RETURNING *',
-            [id_user, name, email, password]
+            [id_user._value, name._value, email._value, password._value]
         )
     }
 
