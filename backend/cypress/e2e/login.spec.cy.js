@@ -1,11 +1,13 @@
 describe('Test Endpoints Login', () => {
-	it('Login succesfully', () => {	
+	it('Login succesfully', () => {
+		const REGEX_JWT = /^Bearer ((?:\.?(?:[A-Za-z0-9-_]+)){3})$/gm
 		cy.request('POST', 'auth/login', {
 			'email': 'test@test.com',
 			'password': 'Administrador1234'
 		})
 			.then(res => {
 				expect(res.status).to.eq(200)
+				expect(REGEX_JWT.test(res.body)).to.be.true
 			})
 	}),
 
@@ -16,12 +18,13 @@ describe('Test Endpoints Login', () => {
 			failOnStatusCode: false,
 			headers: { 'Content-Type': 'application/json' },
 			body: {
-				'email': 'testtest.com',
+				'email': 'tesest.com',
 				'password': 'Administrador1234'
 			}
 		})
 		.then(res => {
-			expect(res.status).to.eq(400)
+			expect(res.status).to.eq(401)
+			expect(res.body).to.eq('Wrong credentials')
 		})
 	}),
 
@@ -37,7 +40,8 @@ describe('Test Endpoints Login', () => {
 			}
 		})
 			.then(res => {
-				expect(res.status).to.eq(409)
+				expect(res.status).to.eq(401)
+				expect(res.body).to.eq('Wrong credentials')
 			})
 	}),
 
@@ -53,7 +57,8 @@ describe('Test Endpoints Login', () => {
 			},
 		})
 			.then(res => {
-				expect(res.status).to.eq(409)
+				expect(res.status).to.eq(401)
+				expect(res.body).to.eq('Wrong credentials')
 			})
 	}),
 
