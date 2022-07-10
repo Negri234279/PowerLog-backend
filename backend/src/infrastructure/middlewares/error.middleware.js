@@ -7,6 +7,7 @@ import { MissingTokenException } from '../errors/missingToken.exception.js'
 export const errorMiddleware = (error, req, res, next) => {
 	console.log('\x1b[0;31m' + error.message)
 
+
 	if (error instanceof DomainFormatException) {
 		return res.status(400).send(error.message)
 	}

@@ -43,7 +43,7 @@ export class UserModel {
 
     static validatePassword(password) {
         return (
-            password.length >= 4 &&
+            password.length >= 8 &&
             password.length <= 30 &&
             !password.includes(' ')
         )

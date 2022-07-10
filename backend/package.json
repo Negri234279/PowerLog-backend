@@ -7,7 +7,10 @@
   "scripts": {
     "start": "SET NODE_ENV=production&& node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "jest",
+    "docker:build": "docker compose -f docker-compose.dev.yml up -d --build",
+    "docker:down": "docker compose -f docker-compose.dev.yml down -v",
+    "cy:open": "cypress open --browser chrome",
+    "cy:run": "cypress run",
     "lint": "eslint --fix src/**/*.js",
     "format": "prettier --write src/**/*.js"
   },
@@ -33,16 +36,15 @@
     "uuid-random": "1.3.2"
   },
   "devDependencies": {
+    "cypress": "10.3.0",
     "eslint": "8.19.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-config-standard": "17.0.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-n": "15.2.4",
     "eslint-plugin-promise": "6.0.0",
-    "jest": "28.1.2",
     "morgan": "1.10.0",
     "nodemon": "2.0.19",
-    "prettier": "2.7.1",
-    "supertest": "6.2.4"
+    "prettier": "2.7.1"
   }
 }

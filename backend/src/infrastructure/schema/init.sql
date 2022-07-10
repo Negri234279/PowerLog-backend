@@ -1,6 +1,3 @@
-DROP DATABASE IF EXISTS postgres;
-CREATE DATABASE postgres;
-
 CREATE TABLE users (
     id_user VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
