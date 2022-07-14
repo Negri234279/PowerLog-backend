@@ -1,15 +1,11 @@
 import uuid from 'uuid-random'
+import { randomUser } from '../../utils/randomUser'
 
 const url = 'auth/register'
 
 const randomEmail = () => `test${Math.floor(Math.random() * 99999)}@test.com`
 
-const user = {
-	'id': uuid(),
-	'email': randomEmail(),
-	'password': 'Administrador1234',
-	'name': 'test'
-}
+const user = randomUser()
 
 
 describe('Test Endpoints Register', () => {
@@ -31,7 +27,7 @@ describe('Test Endpoints Register', () => {
 			headers: { 'Content-Type': 'application/json' },
 			body: {
 				...user,
-				id: '5a491c15-7b90-469b-834e-120897d6d0ab'
+				id: '0f476be6-b0cf-4984-90e7-ad2d7041cf0e'
 			}
 		})
 			.then(res => {

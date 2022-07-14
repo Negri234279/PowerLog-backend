@@ -6,7 +6,7 @@ CREATE TABLE users (
 );
 
 INSERT INTO users (id_user, name, email, password)
-VALUES ('5a491c15-7b90-469b-834e-120897d6d0ab', 'test', 'test@test.com', '$2b$10$1l9K24Wo1dDVhfE.CaRxHO1xvMK2SMSYNtoCnlDgXqU8Qfrq6iWbi');
+VALUES ('0f476be6-b0cf-4984-90e7-ad2d7041cf0e', 'test', 'test@test.com', '$2b$10$1l9K24Wo1dDVhfE.CaRxHO1xvMK2SMSYNtoCnlDgXqU8Qfrq6iWbi');
 /* password => Administrador1234 */
 
 
