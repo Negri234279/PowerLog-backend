@@ -1,5 +1,7 @@
-import { UserModel } from '../../../domain/models/user.model.js'
-import { UserCredentialException } from '../../errors/userCredential.exeption.js'
+import { VOFormatException } from '../../../domain/errors/voFormat.exeption.js'
+import { VOUuid } from '../../../domain/valueObject/shared/uuid.vo.js'
+import { VOPlainPassword } from '../../../domain/valueObject/user/plainPassword.vo.js'
+import { IdAlreadyInUseException } from '../../errors/shared/idAlredyInUse.exeption.js'
 
 export class userProfileUseCase {
     constructor({ userRepository }) {
@@ -7,14 +9,14 @@ export class userProfileUseCase {
     }
 
     async execute(id) {
-        await UserModel.profile(id)
+        const userId = new VOUuid(id)
 
-        const user = await this.userRepository.findById(id)
-        if (!user) throw new UserCredentialException()
+        const user = await this.userRepository.findById(userId)
+        // if (!user) throw new IdAlreadyInUseException()
 
-        const { id: idUser, password, ...data } = user
+        const { email, name } = user
 
-        return data
+        return { email: email._value , name: name._value }
     }
     
 }
