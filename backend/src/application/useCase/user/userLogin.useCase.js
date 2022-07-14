@@ -2,6 +2,7 @@ import { VOFormatException } from '../../../domain/errors/voFormat.exeption.js'
 import { VOEmail } from '../../../domain/valueObject/user/email.vo.js'
 import { VOPlainPassword } from '../../../domain/valueObject/user/plainPassword.vo.js'
 import { InvalidLoginException } from '../../errors/user/invalidLogin.exeption.js'
+import { UserMap } from '../../mappers/user.map.js'
 
 export class userLoginUseCase {
     constructor({ userRepository }) {
@@ -18,8 +19,10 @@ export class userLoginUseCase {
 
             const validPassword = await user.password.compare(userPassword)
             if (!validPassword) throw new InvalidLoginException()
+
+            const { id } = UserMap.toDTO(user)
             
-            return user.id._value
+            return id
             
         } catch (error) {
             if (error instanceof VOFormatException)
