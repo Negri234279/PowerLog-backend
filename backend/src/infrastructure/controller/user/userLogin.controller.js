@@ -16,12 +16,12 @@ export class userLoginController {
 
             const id = await this.userLoginUseCase.execute(email, password)
 
-            const payload = { id };
-            const signOptions = { algorithm: 'HS512', expiresIn: '7d' };
+            const payload = { id }
+            const signOptions = { algorithm: 'HS512', expiresIn: '7d' }
 
             const token = await signAsync(payload, signOptions)
 
-            return res.send(`Bearer ${token}`)
+            return res.send(token)
         } catch (err) {
             next(err)
         }

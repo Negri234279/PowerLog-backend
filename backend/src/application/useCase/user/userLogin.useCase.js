@@ -19,7 +19,7 @@ export class userLoginUseCase {
             const validPassword = await user.password.compare(userPassword)
             if (!validPassword) throw new InvalidLoginException()
             
-            return user.id
+            return user.id._value
             
         } catch (error) {
             if (error instanceof VOFormatException)

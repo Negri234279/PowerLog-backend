@@ -5,7 +5,7 @@ export const signAsync = (payload, signOptions) =>
     new Promise((resolve, reject) => {
         jwt.sign(payload, JWT_SECRET_KEY, signOptions, (err, token) => {
             if (err) reject(err)
-            else resolve(token)
+            else resolve(`Bearer ${token}`)
         })
     })
 
