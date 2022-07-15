@@ -15,18 +15,18 @@ export class userRegisterUseCase  {
         const userId = new VOUuid(id)
         const userEmail = new VOEmail(email)
 
+        const existUserById = await this.userRepository.findById(userId)
+        if (existUserById) throw new IdAlreadyInUseException()
+
+        const existUserByEmail = await this.userRepository.findByEmail(userEmail)
+        if (existUserByEmail) throw new UserEmailAlreadyInUseException()
+
         const newUser = new UserModel(
             userId,
             new VOName(name),
             userEmail,
             await VOPassword.create(password)
         )
-
-        const existUserById = await this.userRepository.findById(userId)
-        if (existUserById) throw new IdAlreadyInUseException()
-
-        const existUserByEmail = await this.userRepository.findByEmail(userEmail)
-        if (existUserByEmail) throw new UserEmailAlreadyInUseException()
 
         await this.userRepository.create(newUser)
     }
