@@ -5,14 +5,14 @@ const url = 'auth/register'
 
 const randomEmail = () => `test${Math.floor(Math.random() * 99999)}@test.com`
 
-const user = randomUser()
+//const user = randomUser()
 
 
 describe('Test Endpoints Register', () => {
 
-	it('Register succesfully', () => {	
-		const id = uuid()
-		const email = randomEmail()
+	it('Register succesfully', () => {
+		const user = randomUser()
+
 		cy.request('POST', url, user)
 			.then(res => {
 				expect(res.status).to.eq(201)
@@ -20,6 +20,9 @@ describe('Test Endpoints Register', () => {
 	})
 
 	it('Register failed - Duplicated ID', () => {
+		const user = randomUser()
+		const id = '0f476be6-b0cf-4984-90e7-ad2d7041cf0e'
+
 		cy.request({
 			method: 'POST',
 			url,
@@ -27,7 +30,7 @@ describe('Test Endpoints Register', () => {
 			headers: { 'Content-Type': 'application/json' },
 			body: {
 				...user,
-				id: '0f476be6-b0cf-4984-90e7-ad2d7041cf0e'
+				id
 			}
 		})
 			.then(res => {
@@ -37,6 +40,9 @@ describe('Test Endpoints Register', () => {
 	})
 
 	it('Register failed - Duplicated email', () => {
+		const user = randomUser()
+		const email = 'test@test.com'
+
 		cy.request({
 			method: 'POST',
 			url,
@@ -44,8 +50,7 @@ describe('Test Endpoints Register', () => {
 			headers: { 'Content-Type': 'application/json' },
 			body: {
 				...user,
-				id: 'eda0bd4b-0b23-4c80-9e8b-baa38dbd1248',
-				email: 'test@test.com'
+				email
 			}
 		})
 			.then(res => {
@@ -55,6 +60,7 @@ describe('Test Endpoints Register', () => {
 	})
 
 	it('Register failed - Invalid ID format', () => {
+		const user = randomUser()
 		const id = 'sdfgsdjnftyhwrtsn5653'
 
 		cy.request({
@@ -74,6 +80,7 @@ describe('Test Endpoints Register', () => {
 	})
 
 	it('Register failed - Invalid name format', () => {
+		const user = randomUser()
 		const name = 'name-with-./*'
 
 		cy.request({
@@ -93,6 +100,7 @@ describe('Test Endpoints Register', () => {
 	})
 
 	it('Register failed - Invalid email format', () => {
+		const user = randomUser()
 		const email = 'name.test'
 		
 		cy.request({
@@ -112,6 +120,7 @@ describe('Test Endpoints Register', () => {
 	})
 
 	it('Register failed - Invalid password format', () => {
+		const user = randomUser()
 		const password = 'pass'
 
 		cy.request({
@@ -147,6 +156,8 @@ describe('Test Endpoints Register', () => {
 	})
 
 	it('Register failed - Unnecesary fields', () => {
+		const user = randomUser()
+
 		cy.request({
 			method: 'POST',
 			url,
