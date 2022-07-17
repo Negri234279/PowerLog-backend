@@ -5,6 +5,7 @@ import { VOName } from '../../../domain/valueObject/workout/name.vo.js'
 import { VOReps } from '../../../domain/valueObject/workout/reps.vo.js'
 import { VOSets } from '../../../domain/valueObject/workout/sets.vo.js'
 import { VOWeight } from '../../../domain/valueObject/workout/weight.vo.js'
+import { IdIsNotFoundException } from '../../errors/shared/IdIsNotFound.exeption.js'
 
 export class workoutUpdateUseCase {
     constructor({ workoutRepository }) {
@@ -14,6 +15,9 @@ export class workoutUpdateUseCase {
     async execute(id, name, sets, reps, weight, date, idUser) {
         const workoutId = new VOUuid(id)
         const userId = new VOUuid(idUser)
+
+        const workout = await this.workoutRepository.findById(workoutId, userId)
+        if (!workout) throw new IdIsNotFoundException()
 
         const updateUser = new WorkoutModel(
             workoutId,
@@ -25,10 +29,7 @@ export class workoutUpdateUseCase {
             userId
         )
 
-        const workout = await this.workoutRepository.update(updateUser)
-        if (!workout) throw new Error('Error')
-
-        return
+        return await this.workoutRepository.update(updateUser)
     }
 
 }

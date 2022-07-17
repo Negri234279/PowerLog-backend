@@ -12,7 +12,7 @@ export class workoutCreateUseCase {
         this.workoutRepository = workoutRepository
     }
 
-    async execute(id, name, weight, reps, sets, date, idUser) {
+    async execute(id, name, sets, reps, weight, date, idUser) {
         const workoutId = new VOUuid(id)
         const userId = new VOUuid(idUser)
 
@@ -29,6 +29,6 @@ export class workoutCreateUseCase {
             userId
         )
 
-        await this.workoutRepository.create(newWorkout)
+        return await this.workoutRepository.create(newWorkout)
     }
 }

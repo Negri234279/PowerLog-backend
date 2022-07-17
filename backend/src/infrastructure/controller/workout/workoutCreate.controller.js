@@ -7,13 +7,17 @@ export class workoutCreateController {
     }
 
     async execute(req, res, next) {
-        const { id, name, weight, reps, sets, date, idUser, ...rest } = req.body
+        console.log('TEST');
+        const { id, name, sets, reps, weight, date, ...rest } = req.body
+        const idUser = req.user.id
+        
+        console.log(Object.keys(rest).length !== 0)
 
         try {
-            if (!id || !name || !weight || !reps || !sets || !date || !idUser) throw new MissingFieldsFormatException()
+            if (!id || !name || !sets || !reps || !weight || !date || !idUser) throw new MissingFieldsFormatException()
             if (Object.keys(rest).length !== 0) throw new UnnecesaryFieldsFormatException()
 
-            await this.workoutCreateUseCase.execute(id, name, weight, reps, sets, date, idUser)
+            await this.workoutCreateUseCase.execute(id, name, sets, reps, weight, date, idUser)
 
             return res.status(201).send()
         } catch (err) {
