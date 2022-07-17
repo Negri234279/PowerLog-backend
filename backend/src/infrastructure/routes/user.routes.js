@@ -12,4 +12,4 @@ router.post('/login', userLoginController.execute.bind(userLoginController))
 router.post('/register', userRegisterController.execute.bind(userRegisterController))
 router.get('/profile', authorize, userProfileController.execute.bind(userProfileController))
 
-export default router
+export { router as user }
