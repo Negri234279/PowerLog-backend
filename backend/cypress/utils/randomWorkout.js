@@ -3,11 +3,20 @@ import uuid from 'uuid-random'
 export const randomWorkout = () => {
     return {
         id: uuid(),
-        name: 'SQLB',
-        weight: 110,
-        reps: 10,
-        sets: 4,
-        date: '01/01/2022',
-        idUser: '0f476be6-b0cf-4984-90e7-ad2d7041cf0a'
+        name: randomWorkoutName(),
+        weight: randomInt(randomInt(200)),
+        reps: randomInt(15),
+        sets: randomInt(6),
+        date: randomDate()
     }
 }
+
+export const randomInt = (maxNumber) => Math.floor(Math.random() * maxNumber) + 1
+
+export const randomWorkoutName = () => {
+    const array = ['SQLB', 'SQHG', 'BP', 'BP Larsen', 'BP Spotto', 'DL']
+    const randomIndex = Math.floor(Math.random() * array.length)
+    return array[randomIndex]
+}
+
+export const randomDate = () => `${randomInt(30)}/01/2022`

@@ -3,11 +3,6 @@ import { randomUser } from '../../utils/randomUser'
 
 const url = 'auth/register'
 
-const randomEmail = () => `test${Math.floor(Math.random() * 99999)}@test.com`
-
-//const user = randomUser()
-
-
 describe('Test Endpoints Register', () => {
 
 	it('Register succesfully', () => {
