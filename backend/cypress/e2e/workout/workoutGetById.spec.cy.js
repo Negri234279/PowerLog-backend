@@ -9,7 +9,7 @@ const workout2 = randomWorkout()
 let Authorization
 
 
-describe('Test endpoints workout create', () => {
+describe('Test Endpoints Workout', () => {
 	it('Get Authorization', () => {
 		const REGEX_JWT = /^Bearer ((?:\.?(?:[A-Za-z0-9-_]+)){3})$/gm
 		cy.request('POST', 'auth/login', {
@@ -23,7 +23,7 @@ describe('Test endpoints workout create', () => {
 			})
 	})
 
-	it('Workout create succesfully', () => {
+	it('Workout succesfully', () => {
 		const body = {
 			id: uuid(),
 			name: "DL",
@@ -43,10 +43,12 @@ describe('Test endpoints workout create', () => {
 			},
 			body
 		})
-			.then(res => expect(res.status).to.eq(201))
+			.then(res => {
+				expect(res.status).to.eq(201)
+			})
 	})
 
-	it('Workout create failed - Duplicated ID', () => {
+	it('Workout failed - Duplicated ID', () => {
 		const id = ''
 		cy.request({
 			method: 'POST',
@@ -67,7 +69,7 @@ describe('Test endpoints workout create', () => {
 			})
 	})
 
-	it('Workout create failed - Invalid name format', () => {
+	it('Workout failed - Invalid name format', () => {
 		const name = "asdfasdfasdfasfasdfasdfasdfasdfasdfasdfasdfasdfasdfsadf"
 
 		cy.request({
@@ -89,7 +91,7 @@ describe('Test endpoints workout create', () => {
 			})
 	})
 
-	it('Workout create failed - Invalid sets format', () => {
+	it('Workout failed - Invalid sets format', () => {
 		const sets = 124
 
 		cy.request({
@@ -111,7 +113,7 @@ describe('Test endpoints workout create', () => {
 			})
 	})
 
-	it('Workout create failed - Invalid reps format', () => {
+	it('Workout failed - Invalid reps format', () => {
 		const reps = 1249
 
 		cy.request({
@@ -133,7 +135,7 @@ describe('Test endpoints workout create', () => {
 			})
 	})
 
-	it('Workout create failed - Invalid weight format', () => {
+	it('Workout failed - Invalid weight format', () => {
 		const weight = 12497
 
 		cy.request({
@@ -155,7 +157,7 @@ describe('Test endpoints workout create', () => {
 			})
 	})
 
-	it('Workout create failed - Invalid date format', () => {
+	it('Workout failed - Invalid date format', () => {
 		const date = '98/24/9657'
 
 		cy.request({
@@ -177,7 +179,7 @@ describe('Test endpoints workout create', () => {
 			})
 	})
 
-	it('Workout create failed - Missing fields', () => {
+	it('Workout failed - Missing fields', () => {
 		cy.request({
 			method: 'POST',
 			url,
@@ -196,7 +198,7 @@ describe('Test endpoints workout create', () => {
 			})
 	})
 
-	it('Workout create failed - Unnecesary fields', () => {
+	it('Workout failed - Unnecesary fields', () => {
 		cy.request({
 			method: 'POST',
 			url,
@@ -213,7 +215,7 @@ describe('Test endpoints workout create', () => {
 			.then(res => {
 				expect(res.status).to.eq(400)
 				expect(res.body).to.eq('Unnecessary fields format')
-			})
+				})
 	})
 
 })
