@@ -4,8 +4,9 @@ import { randomWorkout } from '../../utils/randomWorkout.js'
 const url = 'workout'
 
 const workout = randomWorkout()
+const workout2 = randomWorkout()
 
-let userAuthorization
+let Authorization
 
 
 describe('Test Endpoints Workout', () => {
@@ -18,7 +19,7 @@ describe('Test Endpoints Workout', () => {
 			.then(res => {
 				expect(res.status).to.eq(200)
 				expect(REGEX_JWT.test(res.body)).to.be.true
-				userAuthorization = res.body
+				Authorization = res.body
 			})
 	})
 
@@ -38,7 +39,7 @@ describe('Test Endpoints Workout', () => {
 			failOnStatusCode: false,
 			headers: {
 				'Content-Type': 'application/json',
-				'Authorization': userAuthorization
+				Authorization
 			},
 			body
 		})
@@ -48,13 +49,14 @@ describe('Test Endpoints Workout', () => {
 	})
 
 	it('Workout failed - Duplicated ID', () => {
+		const id = ''
 		cy.request({
 			method: 'POST',
 			url,
 			failOnStatusCode: false,
 			headers: {
 				'Content-Type': 'application/json',
-				'Authorization': userAuthorization
+				Authorization
 			},
 			body: {
 				...workout,
@@ -67,6 +69,116 @@ describe('Test Endpoints Workout', () => {
 			})
 	})
 
+	it('Workout failed - Invalid name format', () => {
+		const name = "asdfasdfasdfasfasdfasdfasdfasdfasdfasdfasdfasdfasdfsadf"
+
+		cy.request({
+			method: 'POST',
+			url,
+			failOnStatusCode: false,
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization
+			},
+			body: {
+				...workout2,
+				name
+			}
+		})
+			.then(res => {
+				expect(res.status).to.eq(400)
+				expect(res.body).to.eq(`VOName: Invalid value "${name}"`)
+			})
+	})
+
+	it('Workout failed - Invalid sets format', () => {
+		const sets = 124
+
+		cy.request({
+			method: 'POST',
+			url,
+			failOnStatusCode: false,
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization
+			},
+			body: {
+				...workout2,
+				sets
+			}
+		})
+			.then(res => {
+				expect(res.status).to.eq(400)
+				expect(res.body).to.eq(`VOSets: Invalid value ${sets}`)
+			})
+	})
+
+	it('Workout failed - Invalid reps format', () => {
+		const reps = 1249
+
+		cy.request({
+			method: 'POST',
+			url,
+			failOnStatusCode: false,
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization
+			},
+			body: {
+				...workout2,
+				reps
+			}
+		})
+			.then(res => {
+				expect(res.status).to.eq(400)
+				expect(res.body).to.eq(`VOReps: Invalid value ${reps}`)
+			})
+	})
+
+	it('Workout failed - Invalid weight format', () => {
+		const weight = 12497
+
+		cy.request({
+			method: 'POST',
+			url,
+			failOnStatusCode: false,
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization
+			},
+			body: {
+				...workout2,
+				weight
+			}
+		})
+			.then(res => {
+				expect(res.status).to.eq(400)
+				expect(res.body).to.eq(`VOWeight: Invalid value ${weight}`)
+			})
+	})
+
+	it('Workout failed - Invalid date format', () => {
+		const date = '98/24/9657'
+
+		cy.request({
+			method: 'POST',
+			url,
+			failOnStatusCode: false,
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization
+			},
+			body: {
+				...workout2,
+				date
+			}
+		})
+			.then(res => {
+				expect(res.status).to.eq(400)
+				expect(res.body).to.eq(`VODate: Invalid value "${date}"`)
+			})
+	})
+
 	it('Workout failed - Missing fields', () => {
 		cy.request({
 			method: 'POST',
@@ -74,7 +186,7 @@ describe('Test Endpoints Workout', () => {
 			failOnStatusCode: false,
 			headers: {
 				'Content-Type': 'application/json',
-				'Authorization': userAuthorization
+				Authorization
 			},
 			body: {
 				name: 'SQLB'
@@ -93,7 +205,7 @@ describe('Test Endpoints Workout', () => {
 			failOnStatusCode: false,
 			headers: {
 				'Content-Type': 'application/json',
-				'Authorization': userAuthorization
+				Authorization
 			},
 			body: {
 				...workout,

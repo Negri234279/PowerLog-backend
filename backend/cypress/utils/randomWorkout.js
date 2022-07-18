@@ -3,11 +3,11 @@ import uuid from 'uuid-random'
 export const randomWorkout = () => {
     return {
         id: uuid(),
-        name: randomWorkoutName(),
+        name: 'DL',
         weight: randomInt(randomInt(200)),
         reps: randomInt(15),
         sets: randomInt(6),
-        date: randomDate()
+        date: '2020-01-01'
     }
 }
 
@@ -19,4 +19,4 @@ export const randomWorkoutName = () => {
     return array[randomIndex]
 }
 
-export const randomDate = () => `${randomInt(30)}/01/2022`
+export const randomDate = () => `2022/01/${randomInt(30)}`
