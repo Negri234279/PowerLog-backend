@@ -1,18 +1,20 @@
-FROM node:14-alpine
-
-LABEL version="1.0"
-LABEL description="This is the base docker image for the PowerLog backend API."
-LABEL maintainer = "rafalejo01@gmail.com"
+FROM node:16.15.0
 
 WORKDIR /app
 
-COPY package.json .
-COPY yarn.lock .
+COPY package*.json .
 
-RUN yarn install -s
+ARG NODE_ENV
+
+RUN if [ "$NODE_ENV" = "production" ]; then \
+  npm install --only=production; \
+else \
+  npm install; \
+fi
 
 COPY . .
 
-EXPOSE 3000
+ENV PORT 3000
+EXPOSE $PORT
 
-CMD [ "yarn", "dev" ]
+CMD ["npm", "run", "start"]
