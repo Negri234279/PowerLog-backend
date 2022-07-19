@@ -1,4 +1,4 @@
-import { randomWorkout } from '../../utils/randomWorkout.js'
+import { generateToken } from '../../utils/generateAuth.js'
 
 const url = 'workout/0f476be6-b0cf-4984-90e7-ad2d7041cf0b'
 
@@ -23,6 +23,7 @@ describe('Test Endpoints Workout update', () => {
 			.then(res => {
 				expect(res.status).to.eq(200)
 				expect(REGEX_JWT.test(res.body)).to.be.true
+				expect(res.body).to.be.an('string')
 				Authorization = res.body
 			})
 	})
@@ -59,6 +60,27 @@ describe('Test Endpoints Workout update', () => {
 			.then(res => {
 				expect(res.status).to.eq(404)
 				expect(res.body).to.eq('The ID is not found in use')
+				expect(res.body).to.be.an('string')
+			})
+	})
+
+	it('Workout update failed - Not exist user ID', async () => {
+		const Authorization = await generateToken('edf53d88-1d56-4b49-a4cd-e34c8f558b55')
+
+		cy.request({
+			method: 'PATCH',
+			url,
+			failOnStatusCode: false,
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization
+			},
+			body: workout
+		})
+			.then(res => {
+				expect(res.status).to.eq(401)
+				expect(res.body).to.eq('Wrong credentials')
+				expect(res.body).to.be.an('string')
 			})
 	})
 
@@ -92,6 +114,7 @@ describe('Test Endpoints Workout update', () => {
 			.then(res => {
 				expect(res.status).to.eq(400)
 				expect(res.body).to.eq('Unnecessary fields format')
+				expect(res.body).to.be.an('string')
 			})
 	})
 

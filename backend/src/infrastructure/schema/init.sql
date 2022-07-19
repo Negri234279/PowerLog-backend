@@ -26,3 +26,6 @@ VALUES ('0f476be6-b0cf-4984-90e7-ad2d7041cf0a', 'SQHG', 110, 4, 4, '01/01/2022',
 
 INSERT INTO workouts (id_workouts, workout, w_weight, w_reps, w_sets, w_date, id_user)
 VALUES ('0f476be6-b0cf-4984-90e7-ad2d7041cf0b', 'BP', 50, 6, 4, '01/01/2022', '0f476be6-b0cf-4984-90e7-ad2d7041cf0e');
+
+INSERT INTO workouts (id_workouts, workout, w_weight, w_reps, w_sets, w_date, id_user)
+VALUES ('45e16863-0ec8-41ba-9118-f987ebb0c9cb', 'DL', 110, 5, 5, '01/01/2022', '0f476be6-b0cf-4984-90e7-ad2d7041cf0e');

@@ -1,3 +1,5 @@
+import { generateToken } from '../../utils/generateAuth'
+
 const url = 'workout/0f476be6-b0cf-4984-90e7-ad2d7041cf0a'
 
 let Authorization
@@ -13,6 +15,7 @@ describe('Test Endpoints Workout delete', () => {
 			.then(res => {
 				expect(res.status).to.eq(200)
 				expect(REGEX_JWT.test(res.body)).to.be.true
+				expect(res.body).to.be.an('string')
 				Authorization = res.body
 			})
 	})
@@ -52,6 +55,22 @@ describe('Test Endpoints Workout delete', () => {
 			.then(res => expect(res.status).to.eq(204))
 	})
 
+	it('Workout delete failed - Not exist user ID', async () => {
+		const Authorization = await generateToken('edf53d88-1d56-4b49-a4cd-e34c8f558b55')
+
+		cy.request({
+			method: 'DELETE',
+			url,
+			failOnStatusCode: false,
+			headers: { Authorization }
+		})
+			.then(res => {
+				expect(res.status).to.eq(401)
+				expect(res.body).to.eq('Wrong credentials')
+				expect(res.body).to.be.an('string')
+			})
+	})
+
 	it('Workout delete failed - Not exist ID', () => {
 		const id = '6ed7dd1e-eb24-41fd-b834-9c639bcf6564'
 
@@ -64,6 +83,7 @@ describe('Test Endpoints Workout delete', () => {
 			.then(res => {
 				expect(res.status).to.eq(404)
 				expect(res.body).to.eq('The ID is not found in use')
+				expect(res.body).to.be.an('string')
 			})
 	})
 
@@ -77,6 +97,7 @@ describe('Test Endpoints Workout delete', () => {
 			.then(res => {
 				expect(res.status).to.eq(400)
 				expect(res.body).to.eq('Missing fields format')
+				expect(res.body).to.be.an('string')
 			})
 	})*/
 
@@ -94,6 +115,7 @@ describe('Test Endpoints Workout delete', () => {
 			.then(res => {
 				expect(res.status).to.eq(400)
 				expect(res.body).to.eq('Unnecessary fields format')
+				expect(res.body).to.be.an('string')
 			})
 	})
 

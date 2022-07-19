@@ -1,4 +1,5 @@
 import uuid from 'uuid-random'
+import { generateToken } from '../../utils/generateAuth.js'
 import { randomWorkout } from '../../utils/randomWorkout.js'
 
 const url = 'workout'
@@ -19,6 +20,7 @@ describe('Test endpoints workout create', () => {
 			.then(res => {
 				expect(res.status).to.eq(200)
 				expect(REGEX_JWT.test(res.body)).to.be.true
+				expect(res.body).to.be.an('string')
 				Authorization = res.body
 			})
 	})
@@ -64,6 +66,7 @@ describe('Test endpoints workout create', () => {
 			.then(res => {
 				expect(res.status).to.eq(409)
 				expect(res.body).to.eq('The ID is already in use')
+				expect(res.body).to.be.an('string')
 			})
 	})
 
@@ -86,6 +89,7 @@ describe('Test endpoints workout create', () => {
 			.then(res => {
 				expect(res.status).to.eq(400)
 				expect(res.body).to.eq(`VOName: Invalid value "${name}"`)
+				expect(res.body).to.be.an('string')
 			})
 	})
 
@@ -108,6 +112,7 @@ describe('Test endpoints workout create', () => {
 			.then(res => {
 				expect(res.status).to.eq(400)
 				expect(res.body).to.eq(`VOSets: Invalid value ${sets}`)
+				expect(res.body).to.be.an('string')
 			})
 	})
 
@@ -130,6 +135,7 @@ describe('Test endpoints workout create', () => {
 			.then(res => {
 				expect(res.status).to.eq(400)
 				expect(res.body).to.eq(`VOReps: Invalid value ${reps}`)
+				expect(res.body).to.be.an('string')
 			})
 	})
 
@@ -152,6 +158,7 @@ describe('Test endpoints workout create', () => {
 			.then(res => {
 				expect(res.status).to.eq(400)
 				expect(res.body).to.eq(`VOWeight: Invalid value ${weight}`)
+				expect(res.body).to.be.an('string')
 			})
 	})
 
@@ -174,6 +181,27 @@ describe('Test endpoints workout create', () => {
 			.then(res => {
 				expect(res.status).to.eq(400)
 				expect(res.body).to.eq(`VODate: Invalid value "${date}"`)
+				expect(res.body).to.be.an('string')
+			})
+	})
+
+	it('Workout create failed - Not exist user ID', async () => {
+		const Authorization = await generateToken('edf53d88-1d56-4b49-a4cd-e34c8f558b55')
+
+		cy.request({
+			method: 'POST',
+			url,
+			failOnStatusCode: false,
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization
+			},
+			body: workout
+		})
+			.then(res => {
+				expect(res.status).to.eq(401)
+				expect(res.body).to.eq('Wrong credentials')
+				expect(res.body).to.be.an('string')
 			})
 	})
 
@@ -193,6 +221,7 @@ describe('Test endpoints workout create', () => {
 			.then(res => {
 				expect(res.status).to.eq(400)
 				expect(res.body).to.eq('Missing fields format')
+				expect(res.body).to.be.an('string')
 			})
 	})
 
@@ -213,6 +242,7 @@ describe('Test endpoints workout create', () => {
 			.then(res => {
 				expect(res.status).to.eq(400)
 				expect(res.body).to.eq('Unnecessary fields format')
+				expect(res.body).to.be.an('string')
 			})
 	})
 

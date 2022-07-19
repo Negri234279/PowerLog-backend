@@ -15,6 +15,7 @@ describe('Test Endpoints Workout get by user id', () => {
 			.then(res => {
 				expect(res.status).to.eq(200)
 				expect(REGEX_JWT.test(res.body)).to.be.true
+				expect(res.body).to.be.an('string')
 				Authorization = res.body
 			})
 	})
@@ -47,6 +48,7 @@ describe('Test Endpoints Workout get by user id', () => {
 			.then(res => {
 				expect(res.status).to.eq(401)
 				expect(res.body).to.eq('Wrong credentials')
+				expect(res.body).to.be.an('string')
 			})
 	})
 
@@ -77,6 +79,7 @@ describe('Test Endpoints Workout get by user id', () => {
 			.then(res => {
 				expect(res.status).to.eq(400)
 				expect(res.body).to.eq('Unnecessary fields format')
+				expect(res.body).to.be.an('string')
 			})
 	})
 

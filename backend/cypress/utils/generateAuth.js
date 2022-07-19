@@ -1,4 +1,7 @@
 import jwt from 'jsonwebtoken'
+import 'dotenv/config'
+
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || 'secret'
 
 export const generateToken = async (id) => {
     const payload = { id }
@@ -6,7 +9,7 @@ export const generateToken = async (id) => {
 
     const signAsync = (payload, signOptions) =>
         new Promise((resolve, reject) => {
-            jwt.sign(payload, 'token', signOptions, (err, token) => {
+            jwt.sign(payload, JWT_SECRET_KEY, signOptions, (err, token) => {
                 if (err) reject(err)
                 else resolve(`Bearer ${token}`)
             })
