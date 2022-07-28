@@ -8,13 +8,15 @@ export class workoutGetByUserIdController {
 
     async execute(req, res, next) {
         const { ...rest } = req.body
-        const id = req.user.id
+        const idUser = req.user.id
+        const startDate = req.query.startDate || new Date('01/01/1971')
+        const endDate = req.query.endDate || new Date('01/01/2099')
 
         try {
-            if (!id) throw new MissingFieldsFormatException()
+            if (!idUser) throw new MissingFieldsFormatException()
             if (Object.keys(rest).length !== 0) throw new UnnecesaryFieldsFormatException()
 
-            const data = await this.workoutGetByUserIdUseCase.execute(id)
+            const data = await this.workoutGetByUserIdUseCase.execute(idUser, startDate, endDate)
 
             return res.status(200).send(data)
         } catch (err) {
