@@ -5,10 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "SET NODE_ENV=production&& node src/index.js",
+    "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "docker:build": "docker compose -f docker-compose.dev.yml up -d --build",
     "docker:down": "docker compose -f docker-compose.dev.yml down -v",
+    "docker:start": "docker compose -f docker-compose.prod.yml up -d",
+    "docker:stop": "docker compose -f docker-compose.prod.yml down",
     "cy:open": "cypress open --browser chrome --e2e",
     "cy:run": "cypress run --browser chrome",
     "lint": "eslint --fix src/**/*.js",

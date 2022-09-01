@@ -1,15 +1,14 @@
 version: '3'
 services:
   backend:
-    image: powerlog-backend
+    image: powerlog-backend-prod
     container_name: ${BACKEND_NAME}
     build:
       context: .
-      args: [NODE_ENV=dev]
+      args: [NODE_ENV=production]
       dockerfile: Dockerfile
     environment:
-      - CHOKIDAR_USEPOLLING=true
-      - NODE_ENV=dev
+      - NODE_ENV=production
     env_file: ./.env
     volumes:
       - ./:/app
@@ -28,11 +27,11 @@ services:
     env_file: ./.env
     volumes: 
       - powerlog-pg-db:/var/lib/postgresql/data
-      - ./src/infrastructure/schema/init.dev.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./src/infrastructure/schema/init.prod.sql:/docker-entrypoint-initdb.d/create_tables.sql
 
   nginx:
     image: nginx:stable-alpine
-    container_name: nginx-proxy
+    container_name: nginx-proxy-prod
     restart: always
     environment:
       - BACKEND_NAME=${BACKEND_NAME}
