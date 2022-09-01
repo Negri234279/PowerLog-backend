@@ -1,5 +1,6 @@
 import { MissingFieldsFormatException } from '../../errors/missingFields.exception.js'
 import { UnnecesaryFieldsFormatException } from '../../errors/unnecesaryFields.exception.js'
+import { signAsync } from '../../utils/jwt.util.js'
 
 export class userRegisterController {
     constructor({ userRegisterUseCase }) {
@@ -15,7 +16,12 @@ export class userRegisterController {
 
             await this.userRegisterUseCase.execute(id, name, email, password)
 
-            return res.status(201).send()
+            const payload = { id }
+            const signOptions = { algorithm: 'HS512', expiresIn: '7d' }
+
+            const token = await signAsync(payload, signOptions)
+
+            return res.status(201).send(token)
         } catch (err) {
             next(err)
         }

@@ -1,7 +1,7 @@
 import { VOFormatException } from '../../errors/voFormat.exeption.js'
 import { ValueObject } from '../valueObject.js'
 
-const NAME_REGEX = /^[A-Z]{1,50}$/
+const NAME_REGEX = /^[a-zA-Z ]{1,50}$/
 
 export class VOName extends ValueObject {
     equals(valueObject) {
