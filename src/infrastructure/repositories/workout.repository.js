@@ -17,34 +17,17 @@ export class WorkoutRepository {
     * @returns Domain user
     */
     toDomain(persistanceWorkout) {
-        if (persistanceWorkout.rowCount !== 1) {
-            return persistanceWorkout.rows.map((w) => {
-                return new WorkoutModel(
-                    new VOUuid(w.id_workouts),
-                    new VOName(w.workout),
-                    new VOSets(w.w_sets),
-                    new VOReps(w.w_reps),
-                    new VOWeight(w.w_weight),
-                    new VODate(w.w_date),
-                    new VOUuid(w.id_user)
-                )
-            })
-        }
-
-        const { id_workouts, workout, w_sets, w_reps, w_weight, w_date, id_user } = persistanceWorkout.rows[0]
-
-        return new WorkoutModel(
-            new VOUuid(id_workouts),
-            new VOName(workout),
-            new VOSets(w_sets),
-            new VOReps(w_reps),
-            new VOWeight(w_weight),
-            new VODate(w_date),
-            new VOUuid(id_user)
-        )
-
-
-
+        return persistanceWorkout.rows.map((w) => {
+            return new WorkoutModel(
+                new VOUuid(w.id_workouts),
+                new VOName(w.workout),
+                new VOSets(w.w_sets),
+                new VOReps(w.w_reps),
+                new VOWeight(w.w_weight),
+                new VODate(w.w_date),
+                new VOUuid(w.id_user)
+            )
+        })
     }
 
     /**
@@ -83,7 +66,7 @@ export class WorkoutRepository {
             [id._value]
         )
 
-        if (!workoutFound.rows[0]) return null
+        if (!workoutFound.rows[0]) return []
 
         return this.toDomain(workoutFound)
     }
